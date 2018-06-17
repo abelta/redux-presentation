@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Redux</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="css/styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section
+					data-background-image="/img/redux-logo.png"
+					data-background-size="90%"
+					>
+				</section>
+				<section>
+					<p class="fragment">
+						Librería
+					</p>
+					<p class="fragment">
+						Flujo
+					</p>
+					<p class="fragment">
+						Dan Abramov
+					</p>
+					<aside class="notes">
+						Está en la naturaleza de React el tener una librería de flujo separada.
+						Inicialmente esta librería era Flux.
+						Dan Abramov era un estudiante de informática y creó una nueva para un experimento.
+						Esta nueva librería gustó y se convirtió en el nuevo standard y contrataron a Dan en Facebook.
+						Es la voz más influyente de React.
+					</aside>
+				</section>
+				<section data-background-image="/img/model-view-controller.jpg">
+				</section>
+				<section
+					class="section-colored"
+					data-background-image="/img/model-view-controller-dark.jpg"
+				>
+					<h1
+						class="fragment"
+						style="color: red; font-size: 500px;"
+					>
+						NO
+					 </h1>
+					 <aside class="notes">
+						<b>¿Quién cree que React corresponde al paradigma MVC?</b>
+						Es una confusión muy común.
+						Puede encontrarse un paralelismo con las vistas y controladores pero no con los modelos.
+					 </aside>
+				</section>
+				<section data-background-image="/img/broadcast-bg.jpg">
+				</section>
+				<section data-background-image="/img/broadcast-bg-dark.jpg">
+					<h1 class="white">
+						Pub-sub
+					</h1>
+					<aside class="notes">
+						<b>¿Quién conoce el paradigma Pub-sub?</b>
+						Las acciones se emiten pero no son dirigidas a un objeto concreto.
+						Cada componente, saga o reductor sabe comportarse en cada circunstancia, es responsable de su estado.
+						Es un paradigma mucho más extendible y mantenible y resistente a fallos.
+					</aside>
+				</section>
+				<section data-background-image="/img/shipping-containers.jpg">
+				</section>
+				<section data-background-image="/img/shipping-containers-dark.jpg">
+					<h1 class="white">
+						Contenedores
+					</h1>
+					<section class="white">
+						<p class="fragment">
+							Componentes React inteligentes
+						</p>
+						<p class="fragment">
+							Conectados al flujo de redux
+						</p>
+						<p class="fragment">
+							Recibe propiedades inyectadas
+						</p>
+					</section>
+					<section style="width: 90%">
+						<pre>
+							<code data-trim data-noescape>
+								import { connect } from 'react-redux';
+								const MyComponent = () => (
+								// ...
+								);
+								const mapStateToProps = state => ({});
+								const mapDispatchToProps = dispatch => ({});
+								export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
+							</code>
+						</pre>
+						<aside class="notes">
+							<p>
+								Recordatorio: los componentes se redibujan cuando cambian sus propiedades.
+							</p>
+							<p>
+								Redux inyecta en el componente propiedades del almacén de datos, lo que puede
+								desencadenar un redibujo total o parcial del componente.
+							</p>
+						</aside>
+					</section>
+					<section class="white">
+						<p>
+							Reaccionan a cambios en el store
+						</p>
+						<p>
+							Parte del store está inyectado en sus propiedades
+						</p>
+						<p>
+							Pueden emitir una acción
+						</p>
+						<aside class="notes">
+							<p>
+								Un contenedor emitiendo una acción es lo más parecido
+								a la programación imperativa que hay en React-Redux.
+							</p>
+						</aside>
+					</section>
+				</section>
+				<section data-background-image="/img/actions.png">
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/actions-dark.png"
+				>
+					<h1 class="white">
+						Acciones
+					</h1>
+					<section>
+						<p>
+							Son mensajes muy sencillos
+						</p>
+						<p>
+							Incluyen <b>type</b> y <b>payload</b>
+						</p>
+						<p>
+							El componente emite con <b>dispatch</b>
+						</p>
+						<aside class="notes">
+							<p>
+								El tipo es el tipo de acción que se ha producido.
+							</p>
+							<p>
+								El payload es información o parámetros sobre la acción.
+							</p>
+							<p>
+								<b>dispatch</b> es un método que tienen todos los componentes conectados a Redux.
+								Se puede usar a mano o con el método <b>mapDispatchToProps</b>.
+							</p>
+						</aside>
+					</section>
+				</section>
+				<section data-background-image="/img/reducers.jpg">
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/reducers-dark.jpg"
+				>
+					<h1 class="white">
+						Reductores
+					</h1>
+					<section>
+						<p>
+							Son funciones
+						</p>
+						<p>
+							Son un switch
+						</p>
+						<p>
+							Reaccionan a una acción
+						</p>
+						<aside class="notes">
+							<p>
+								Programación funcional. Son completamente fiables. No dependen de estados.
+								Reciben un estado como uno de sus parámetros.
+							</p>
+							<p>
+								Todas las acciones emitidas pasan por todos los reductores, aunque éstos no siempre reaccionen.
+							</p>
+						</aside>
+					</section>
+					<section>
+						<p>
+							Hay varios reductores
+						</p>
+						<p>
+							Se componen con la función de Redux <b>composeReducers</b>
+						</p>
+						<p>
+							Cada reductor se encarga de modificar su parte del almacén
+						</p>
+					</section>
+				</section>
+				<section data-background-image="/img/store.jpg">
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/store-dark.jpg"
+				>
+					<h1 class="white">
+						Almacén de datos
+					</h1>
+					<section>
+						<p>
+							Viene definido por la estructura de los reductores
+						</p>
+						<p>
+							Objetos de Javascript planos
+						</p>
+						<p>
+							No puede modificarse directamente
+						</p>
+					</section>
+				</section>
+				<section data-background-image="/img/side-effects.jpg">
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/side-effects-dark.jpg"
+				>
+					<h1 class="white">
+						Efectos secundarios
+					</h1>
+					<p>
+						No vienen contemplados en el flujo Redux
+					</p>
+					<p class="fragment">
+						Cookies
+					</p>
+					<p class="fragment">
+						Llamadas a servicios
+					</p>
+					<p class="fragment">
+						Operaciones en el tiempo
+					</p>
+					<p class="fragment">
+						Acceso a las APIs del navegador
+					</p>
+				</section>
+				<section>
+					<h1>
+						Redux Thunk
+					</h1>
+					<p>
+						Es middleware
+					</p>
+					<p>
+						Patrón thunk
+					</p>
+					<aside class="notes">
+						<p>
+							El patrón thunk consiste en una función que ejecuta una acción y
+							devuelve otra función como resultado
+						</p>
+						<p>
+							Es fácil de utilizar
+						</p>
+						<p>
+							Altera mucho la naturaleza del creador de acciones al aportarle lógica
+						</p>
+					</aside>
+				</section>
+				<section
+					data-background-image="/img/redux-thunk.png"
+					data-background-size="contain"
+				>
+				</section>
+				<section
+					data-background-image="/img/redux-sagas.png"
+					data-background-size="contain"
+				>
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/redux-thunk-dark.png"
+					data-background-size="contain"
+				>
+				</section>
+				<section data-background-image="/img/sagas.jpg">
+				</section>
+				<section
+					class="white"
+					data-background-image="/img/sagas-dark.jpg"
+				>
+					<h1 class="white">
+						Redux Sagas
+					</h1>
+					<p>
+						Requiere el uso de funciones generadoras (ES6)
+					</p>
+					<p>
+						Las sagas escuchan las acciones igual que un reductor
+					</p>
+					<aside class="notes">
+						<p>
+							Las funciones generadoras permiten la ejecución de una función por pasos
+						</p>
+						<p>
+							Es una API más difícil de entender pero más flexible
+						</p>
+						<p>
+							No altera el flujo de una funcion sino qu extiende el paradigma de Redux
+						</p>
+					</aside>
+				</section>
+				<!-- <section
+					class="white"
+					data-background-image="/img/redux-sagas-dark.png"
+					data-background-size="contain"
+				>
+				</section> -->
+				<section>
+					<h1>
+						Proyección
+					</h1>
+					<section>
+						<h2>
+							React Native
+						</h2>
+						<aside class="notes">
+							<p>
+								Compila a nativo para IOS y Android
+							</p>
+							<p>
+								Levanta un ejecutable en nativo, otro de Javascript y los une con un puente
+							</p>
+							<p>
+								Proporciona un nuevo grupo de componentes que sustituyen a los elementos de HTML
+							</p>
+							<p>
+								Estilos similares a CSS pero con Flexbox
+							</p>
+							<p>
+								Desarrollo fácil y rápido gracias a Expo
+							</p>
+							<p>
+								Se integra con todas las librerías del entorno React: router, sagas, redux...
+							</p>
+							<p>
+								Proporciona APIs para todas las funcionalidades nativas del
+								dispositivo: contactos, cámaras, geolocalización, almacenamiento, teclado, compartir, gestos...
+							</p>
+						</aside>
+					</section>
+					<section>
+						<h2>
+							React VR
+						</h2>
+						<aside class="notes">
+							<p>
+								Experimental
+							</p>
+						</aside>
+					</section>
+					<section>
+						<h2>
+							Server Side Rendering
+						</h2>
+						<p class="fragment">
+							Next
+						</p>
+						<aside class="notes">
+							<p>
+								Podemos servir la aplicación desde el servidor además de ejecutarla en cliente
+							</p>
+							<p>
+								Se reutilizan componentes y flujo de datos: Redux, Sagas, llamadas...
+							</p>
+							<p>
+								Mejor experiencia de usuario y mejor descubrimiento
+							</p>
+						</aside>
+					</section>
+					<section>
+						<h2>
+							Serverless
+						</h2>
+						<p class="fragment">
+							Firebase
+						</p>
+						<p class="fragment">
+							Lambdas
+						</p>
+						<p class="fragment">
+							...
+						</p>
+					</section>
+					<aside class="notes">
+						<p>
+							Conociendo React y su entorno se tiene fácil acceso al resto de implementaciones de la librería
+						</p>
+						<p>
+							El paradigma de componentes presentacionales con un flujo de datos a parte es flexible y se adapta bien a diferentes interfaces
+						</p>
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				width: "90%",
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
