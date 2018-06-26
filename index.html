@@ -31,6 +31,14 @@
 					>
 				</section>
 				<section>
+					<h1>
+						Repositorio del ejercicio
+					</h1>
+					<p>
+						https://github.com/abelta/poke-redux-2
+					</p>
+				</section>
+				<section>
 					<p class="fragment">
 						Librería
 					</p>
@@ -59,12 +67,12 @@
 						style="color: red; font-size: 500px; -webkit-text-stroke: 4px black;"
 					>
 						NO
-					 </h1>
-					 <aside class="notes">
+					</h1>
+					<aside class="notes">
 						<b>¿Quién cree que React corresponde al paradigma MVC?</b>
 						Es una confusión muy común.
 						Puede encontrarse un paralelismo con las vistas y controladores pero no con los modelos.
-					 </aside>
+					</aside>
 				</section>
 				<section data-background-image="/img/broadcast-bg.jpg">
 				</section>
@@ -96,15 +104,22 @@
 							Recibe propiedades inyectadas
 						</p>
 					</section>
-					<section style="width: 90%">
+					<section>
 						<pre>
 							<code data-trim data-noescape>
+								import React from 'react';
 								import { connect } from 'react-redux';
-								const MyComponent = () => (
-								// ...
+								import { actionExecuted } from 'actions';
+								
+								const MyComponent = ({ injectedProp, injectedAction }) => (
+									// ...
 								);
-								const mapStateToProps = state => ({});
-								const mapDispatchToProps = dispatch => ({});
+								const mapStateToProps = state => ({
+									injectedProp: state.prop,
+								});
+								const mapDispatchToProps = dispatch => ({
+									injectedAction: () => dispatch(actionExecuted()),
+								});
 								export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 							</code>
 						</pre>
@@ -119,13 +134,13 @@
 						</aside>
 					</section>
 					<section class="white">
-						<p>
+						<p  class="fragment">
 							Reaccionan a cambios en el store
 						</p>
-						<p>
+						<p class="fragment">
 							Parte del store está inyectado en sus propiedades
 						</p>
-						<p>
+						<p class="fragment">
 							Pueden emitir una acción
 						</p>
 						<aside class="notes">
@@ -146,13 +161,13 @@
 						Acciones
 					</h1>
 					<section>
-						<p>
+						<p class="fragment">
 							Son mensajes muy sencillos
 						</p>
-						<p>
+						<p class="fragment">
 							Incluyen <b>type</b> y <b>payload</b>
 						</p>
-						<p>
+						<p class="fragment">
 							El componente emite con <b>dispatch</b>
 						</p>
 						<aside class="notes">
@@ -168,6 +183,18 @@
 							</p>
 						</aside>
 					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape>
+								const actionExecuted = ({ params }) => ({
+									type: 'ACTION_EXECUTED',
+									payload: { params },
+								});
+								
+								export default actionExecuted;
+							</code>
+						</pre>
+					</section>
 				</section>
 				<section data-background-image="/img/reducers.jpg">
 				</section>
@@ -179,13 +206,13 @@
 						Reductores
 					</h1>
 					<section>
-						<p>
+						<p class="fragment">
 							Son funciones
 						</p>
-						<p>
+						<p class="fragment">
 							Son un switch
 						</p>
-						<p>
+						<p class="fragment">
 							Reaccionan a una acción
 						</p>
 						<aside class="notes">
@@ -199,15 +226,52 @@
 						</aside>
 					</section>
 					<section>
-						<p>
+						<pre>
+							<code data-trim data-noescape>
+								const initState = {};
+								
+								const myReducer = (state = initState, action) => {
+									switch (action.type) {
+										case 'MY_ACTION': {
+											const changes = {
+												// ...
+											};
+											return { ...state, ...changes };
+										}
+										default: return state;
+									}
+								};
+								
+								export default myReducer;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p class="fragment">
 							Hay varios reductores
 						</p>
-						<p>
+						<p class="fragment">
 							Se componen con la función de Redux <b>composeReducers</b>
 						</p>
-						<p>
+						<p class="fragment">
 							Cada reductor se encarga de modificar su parte del almacén
 						</p>
+					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape>
+								import { combineReducers } from 'redux';
+								import pokemon from './reducer1';
+								import pokemon from './reducer2';
+
+								const reducer = combineReducers({
+									reducer1,
+									reducer2,
+								});
+
+								export default reducer;
+							</code>
+						</pre>
 					</section>
 				</section>
 				<section data-background-image="/img/store.jpg">
@@ -220,13 +284,13 @@
 						Almacén de datos
 					</h1>
 					<section>
-						<p>
+						<p class="fragment">
 							Viene definido por la estructura de los reductores
 						</p>
-						<p>
+						<p class="fragment">
 							Objetos de Javascript planos
 						</p>
-						<p>
+						<p class="fragment">
 							No puede modificarse directamente
 						</p>
 					</section>
@@ -260,10 +324,10 @@
 					<h1>
 						Redux Thunk
 					</h1>
-					<p>
+					<p class="fragment">
 						Es middleware
 					</p>
-					<p>
+					<p class="fragment">
 						Patrón thunk
 					</p>
 					<aside class="notes">
@@ -279,10 +343,20 @@
 						</p>
 					</aside>
 				</section>
+				<section>
+					<p>
+						Flujo Redux con Thunk
+					</p>
+				</section>
 				<section
 					data-background-image="/img/redux-thunk.png"
 					data-background-size="contain"
 				>
+				</section>
+				<section>
+					<p>
+						Flujo Redux con Sagas
+					</p>
 				</section>
 				<section
 					data-background-image="/img/redux-sagas.png"
@@ -291,7 +365,7 @@
 				</section>
 				<section
 					class="white"
-					data-background-image="/img/redux-thunk-dark.png"
+					data-background-image="/img/redux-sagas-dark.png"
 					data-background-size="contain"
 				>
 				</section>
@@ -304,10 +378,10 @@
 					<h1 class="white">
 						Redux Sagas
 					</h1>
-					<p>
+					<p class="fragment">
 						Requiere el uso de funciones generadoras (ES6)
 					</p>
-					<p>
+					<p class="fragment">
 						Las sagas escuchan las acciones igual que un reductor
 					</p>
 					<aside class="notes">
@@ -322,12 +396,6 @@
 						</p>
 					</aside>
 				</section>
-				<!-- <section
-					class="white"
-					data-background-image="/img/redux-sagas-dark.png"
-					data-background-size="contain"
-				>
-				</section> -->
 				<section>
 					<h1>
 						Proyección
@@ -335,6 +403,11 @@
 					<section>
 						<h2>
 							React Native
+							<br />
+							<img
+								class="logo"
+								src="/img/react-native-logo.png"
+							/>
 						</h2>
 						<aside class="notes">
 							<p>
@@ -364,6 +437,11 @@
 					<section>
 						<h2>
 							React VR
+							<br />
+							<img
+								class="logo"
+								src="/img/react-vr-logo.png"
+							/>
 						</h2>
 						<aside class="notes">
 							<p>
@@ -377,6 +455,11 @@
 						</h2>
 						<p class="fragment">
 							Next
+							<br />
+							<img
+								class="logo"
+								src="/img/nextjs-logo.jpg"
+							/>
 						</p>
 						<aside class="notes">
 							<p>
@@ -396,31 +479,32 @@
 						</h2>
 						<p class="fragment">
 							Firebase
-						</p>
-						<p class="fragment">
-							Lambdas
-						</p>
-						<p class="fragment">
-							...
+							<br />
+							<img
+								class="logo"
+								src="/img/firebase-logo.png"
+							/>
 						</p>
 					</section>
-					<aside class="notes">
+					<section>
+						<h2>
+							Serverless
+						</h2>
 						<p>
-							Conociendo React y su entorno se tiene fácil acceso al resto de implementaciones de la librería
+							Amazon Web Services
+							<br />
+							<img
+								class="logo"
+								src="/img/amazon-services-logo.jpg"
+							/>
 						</p>
-						<p>
-							El paradigma de componentes presentacionales con un flujo de datos a parte es flexible y se adapta bien a diferentes interfaces
-						</p>
-					</aside>
+					</section>
 				</section>
-				<section>
-					<h1>
-						Repositorio del ejercicio
-					</h1>
-					<p>
-						https://github.com/abelta/poke-redux-2
-					</p>
-				</section>
+				<section
+					class="white"
+					data-background-image="/img/gracias-por-venir.jpg"
+				>
+			</section>
 			</div>
 		</div>
 
@@ -436,7 +520,7 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); }, tabReplace: '  ' },
 				]
 			});
 		</script>
