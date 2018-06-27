@@ -48,13 +48,6 @@
 					<p class="fragment">
 						Dan Abramov
 					</p>
-					<aside class="notes">
-						Está en la naturaleza de React el tener una librería de flujo separada.
-						Inicialmente esta librería era Flux.
-						Dan Abramov era un estudiante de informática y creó una nueva para un experimento.
-						Esta nueva librería gustó y se convirtió en el nuevo standard y contrataron a Dan en Facebook.
-						Es la voz más influyente de React.
-					</aside>
 				</section>
 				<section data-background-image="/img/model-view-controller.jpg">
 				</section>
@@ -62,17 +55,9 @@
 					class="section-colored"
 					data-background-image="/img/model-view-controller-dark.jpg"
 				>
-					<h1
-						class="fragment"
-						style="color: red; font-size: 500px; -webkit-text-stroke: 4px black;"
-					>
+					<h1 class="red">
 						NO
 					</h1>
-					<aside class="notes">
-						<b>¿Quién cree que React corresponde al paradigma MVC?</b>
-						Es una confusión muy común.
-						Puede encontrarse un paralelismo con las vistas y controladores pero no con los modelos.
-					</aside>
 				</section>
 				<section data-background-image="/img/broadcast-bg.jpg">
 				</section>
@@ -80,12 +65,6 @@
 					<h1 class="white">
 						Pub-sub
 					</h1>
-					<aside class="notes">
-						<b>¿Quién conoce el paradigma Pub-sub?</b>
-						Las acciones se emiten pero no son dirigidas a un objeto concreto.
-						Cada componente, saga o reductor sabe comportarse en cada circunstancia, es responsable de su estado.
-						Es un paradigma mucho más extendible y mantenible y resistente a fallos.
-					</aside>
 				</section>
 				<section data-background-image="/img/shipping-containers.jpg">
 				</section>
@@ -98,7 +77,7 @@
 							Componentes React inteligentes
 						</p>
 						<p class="fragment">
-							Conectados al flujo de redux
+							Conectados al flujo de Redux
 						</p>
 						<p class="fragment">
 							Recibe propiedades inyectadas
@@ -123,15 +102,6 @@
 								export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 							</code>
 						</pre>
-						<aside class="notes">
-							<p>
-								Recordatorio: los componentes se redibujan cuando cambian sus propiedades.
-							</p>
-							<p>
-								Redux inyecta en el componente propiedades del almacén de datos, lo que puede
-								desencadenar un redibujo total o parcial del componente.
-							</p>
-						</aside>
 					</section>
 					<section class="white">
 						<p  class="fragment">
@@ -143,24 +113,15 @@
 						<p class="fragment">
 							Pueden emitir una acción
 						</p>
-						<aside class="notes">
-							<p>
-								Un contenedor emitiendo una acción es lo más parecido
-								a la programación imperativa que hay en React-Redux.
-							</p>
-						</aside>
 					</section>
 				</section>
 				<section data-background-image="/img/actions.png">
 				</section>
-				<section
-					class="white"
-					data-background-image="/img/actions-dark.png"
-				>
+				<section data-background-image="/img/actions-dark.png">
 					<h1 class="white">
 						Acciones
 					</h1>
-					<section>
+					<section class="white">
 						<p class="fragment">
 							Son mensajes muy sencillos
 						</p>
@@ -170,18 +131,6 @@
 						<p class="fragment">
 							El componente emite con <b>dispatch</b>
 						</p>
-						<aside class="notes">
-							<p>
-								El tipo es el tipo de acción que se ha producido.
-							</p>
-							<p>
-								El payload es información o parámetros sobre la acción.
-							</p>
-							<p>
-								<b>dispatch</b> es un método que tienen todos los componentes conectados a Redux.
-								Se puede usar a mano o con el método <b>mapDispatchToProps</b>.
-							</p>
-						</aside>
 					</section>
 					<section>
 						<pre>
@@ -198,14 +147,11 @@
 				</section>
 				<section data-background-image="/img/reducers.jpg">
 				</section>
-				<section
-					class="white"
-					data-background-image="/img/reducers-dark.jpg"
-				>
+				<section data-background-image="/img/reducers-dark.jpg">
 					<h1 class="white">
 						Reductores
 					</h1>
-					<section>
+					<section class="white">
 						<p class="fragment">
 							Son funciones
 						</p>
@@ -215,15 +161,6 @@
 						<p class="fragment">
 							Reaccionan a una acción
 						</p>
-						<aside class="notes">
-							<p>
-								Programación funcional. Son completamente fiables. No dependen de estados.
-								Reciben un estado como uno de sus parámetros.
-							</p>
-							<p>
-								Todas las acciones emitidas pasan por todos los reductores, aunque éstos no siempre reaccionen.
-							</p>
-						</aside>
 					</section>
 					<section>
 						<pre>
@@ -246,7 +183,7 @@
 							</code>
 						</pre>
 					</section>
-					<section>
+					<section class="white">
 						<p class="fragment">
 							Hay varios reductores
 						</p>
@@ -276,14 +213,11 @@
 				</section>
 				<section data-background-image="/img/store.jpg">
 				</section>
-				<section
-					class="white"
-					data-background-image="/img/store-dark.jpg"
-				>
+				<section data-background-image="/img/store-dark.jpg">
 					<h1 class="white">
 						Almacén de datos
 					</h1>
-					<section>
+					<section class="white">
 						<p class="fragment">
 							Viene definido por la estructura de los reductores
 						</p>
@@ -330,18 +264,6 @@
 					<p class="fragment">
 						Patrón thunk
 					</p>
-					<aside class="notes">
-						<p>
-							El patrón thunk consiste en una función que ejecuta una acción y
-							devuelve otra función como resultado
-						</p>
-						<p>
-							Es fácil de utilizar
-						</p>
-						<p>
-							Altera mucho la naturaleza del creador de acciones al aportarle lógica
-						</p>
-					</aside>
 				</section>
 				<section>
 					<p>
@@ -364,37 +286,81 @@
 				>
 				</section>
 				<section
-					class="white"
 					data-background-image="/img/redux-sagas-dark.png"
 					data-background-size="contain"
 				>
 				</section>
+				<section>
+					<h1>
+						Funciones generadoras
+					</h1>
+					<p class="fragment">
+						Permiten la ejecución de una función por pasos
+					</p>
+				</section>
+				<section>
+					<pre>
+						<code data-trim data-noescape>
+							function* generator(i) {
+								yield i;
+								yield i + 10;
+							}
+
+							var gen = generator(10);
+
+							console.log(gen.next().value); // => 10
+							console.log(gen.next().value); // => 20
+						</code>
+					</pre>
+				</section>
 				<section data-background-image="/img/sagas.jpg">
 				</section>
-				<section
-					class="white"
-					data-background-image="/img/sagas-dark.jpg"
-				>
+				<section data-background-image="/img/sagas-dark.jpg">
 					<h1 class="white">
 						Redux Sagas
 					</h1>
-					<p class="fragment">
+					<p class="fragment white">
 						Requiere el uso de funciones generadoras (ES6)
 					</p>
-					<p class="fragment">
+					<p class="fragment white">
 						Las sagas escuchan las acciones igual que un reductor
 					</p>
-					<aside class="notes">
-						<p>
-							Las funciones generadoras permiten la ejecución de una función por pasos
-						</p>
-						<p>
-							Es una API más difícil de entender pero más flexible
-						</p>
-						<p>
-							No altera el flujo de una funcion sino qu extiende el paradigma de Redux
-						</p>
-					</aside>
+					<p class="fragment white">
+						Es una API más difícil de entender pero más flexible
+					</p>
+					<p class="fragment white">
+						No altera el flujo de una funcion sino que extiende el paradigma de Redux
+					</p>
+					<section>
+						<pre>
+							<code data-trim data-noescape>
+								import { call, put, spawn, takeLatest } from 'redux-saga/effects';
+								import * as types from 'actions/actionTypes';
+								import { actionSucceeded, actionFailed } from 'actions';
+								import { doSomethingAPI } from 'APICalls';
+								
+								function* somethingRequested(action) {
+									const params = action.payload;
+									try {
+										const result = yield call(doSomethingAPI, params);
+										yield put(actionSucceeded({ result }));
+									} catch (error) {
+										yield put(actionFailed({ message: error.message }));
+									}
+								}
+								
+								function* somethingRequestedSaga() {
+									yield takeLatest(types.SOMETHING_REQUESTED, somethingRequested);
+								}
+								
+								function* mySaga() {
+									yield spawn(somethingRequestedSaga);
+								}
+								
+								export default mySaga;
+							</code>
+						</pre>
+					</section>
 				</section>
 				<section>
 					<h1>
@@ -409,30 +375,6 @@
 								src="/img/react-native-logo.png"
 							/>
 						</h2>
-						<aside class="notes">
-							<p>
-								Compila a nativo para IOS y Android
-							</p>
-							<p>
-								Levanta un ejecutable en nativo, otro de Javascript y los une con un puente
-							</p>
-							<p>
-								Proporciona un nuevo grupo de componentes que sustituyen a los elementos de HTML
-							</p>
-							<p>
-								Estilos similares a CSS pero con Flexbox
-							</p>
-							<p>
-								Desarrollo fácil y rápido gracias a Expo
-							</p>
-							<p>
-								Se integra con todas las librerías del entorno React: router, sagas, redux...
-							</p>
-							<p>
-								Proporciona APIs para todas las funcionalidades nativas del
-								dispositivo: contactos, cámaras, geolocalización, almacenamiento, teclado, compartir, gestos...
-							</p>
-						</aside>
 					</section>
 					<section>
 						<h2>
@@ -443,17 +385,12 @@
 								src="/img/react-vr-logo.png"
 							/>
 						</h2>
-						<aside class="notes">
-							<p>
-								Experimental
-							</p>
-						</aside>
 					</section>
 					<section>
 						<h2>
 							Server Side Rendering
 						</h2>
-						<p class="fragment">
+						<p>
 							Next
 							<br />
 							<img
@@ -461,23 +398,12 @@
 								src="/img/nextjs-logo.jpg"
 							/>
 						</p>
-						<aside class="notes">
-							<p>
-								Podemos servir la aplicación desde el servidor además de ejecutarla en cliente
-							</p>
-							<p>
-								Se reutilizan componentes y flujo de datos: Redux, Sagas, llamadas...
-							</p>
-							<p>
-								Mejor experiencia de usuario y mejor descubrimiento
-							</p>
-						</aside>
 					</section>
 					<section>
 						<h2>
 							Serverless
 						</h2>
-						<p class="fragment">
+						<p>
 							Firebase
 							<br />
 							<img
@@ -504,6 +430,14 @@
 					class="white"
 					data-background-image="/img/gracias-por-venir.jpg"
 				>
+			</section>
+			<section>
+				<h1>
+					Repositorio del ejercicio
+				</h1>
+				<p>
+					https://github.com/abelta/poke-redux-2
+				</p>
 			</section>
 			</div>
 		</div>

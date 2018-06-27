@@ -16,4 +16,12 @@
 
 .white {
   color: white !important;
+  font-weight: bold;
+  -webkit-text-stroke: 1px black;
+}
+
+.red {
+  color: red !important;
+  font-size: 500px !important;
+  -webkit-text-stroke: 4px black !important;
 }
